@@ -10,7 +10,7 @@ export interface FlickrFilters {
   tags?: string;
   min_upload_date?: string;
   max_upload_date?: string;
-  safe_search?: number; 
+  safe_search?: number;
   in_gallery?: boolean;
 }
 
@@ -26,35 +26,35 @@ export class FlickrService {
       .set('api_key', this.API_KEY)
       .set('format', 'json')
       .set('nojsoncallback', '1')
-      .set('extras', 'url_m,owner_name,date_upload'); 
+      .set('extras', 'url_m,owner_name,date_upload');
 
-    
-    if (filters.text) 
+
+    if (filters.text)
     {
         params = params.set('text', filters.text);
     }
-    if (filters.sort) 
+    if (filters.sort)
     {
         params = params.set('sort', filters.sort);
     }
-    if (filters.tags) 
+    if (filters.tags)
     {
         params = params.set('tags', filters.tags);
     }
-    if (filters.min_upload_date) 
+    if (filters.min_upload_date)
     {
         params = params.set('min_upload_date', this.toUnix(filters.min_upload_date));
     }
-    if (filters.max_upload_date) 
+    if (filters.max_upload_date)
     {
         params = params.set('max_upload_date', this.toUnix(filters.max_upload_date));
     }
-    
-    if (filters.safe_search) 
+
+    if (filters.safe_search)
     {
         params = params.set('safe_search', filters.safe_search.toString());
     }
-    if (filters.in_gallery) 
+    if (filters.in_gallery)
     {
         params = params.set('in_gallery', '1');
     }
@@ -63,6 +63,56 @@ export class FlickrService {
       catchError(error => {
         console.error('Erreur lors de l’appel API Flickr', error);
         return throwError(() => new Error('Service Flickr indisponible.'));
+      })
+    );
+  }
+
+  getPhotoDetails(photoId: string): Observable<any>
+  {
+    const params = new HttpParams()
+      .set('method', 'flickr.photos.getInfo')
+      .set('api_key', this.API_KEY)
+      .set('photo_id', photoId)
+      .set('format', 'json')
+      .set('nojsoncallback', '1');
+
+    return this.http.get(this.API_URL, { params }).pip(
+      catchError(e => {
+        console.error('Error API: ', e);
+        return throwError(() => new Error('Cannot retreive photo details'));
+      })
+    )
+  }
+
+  getPhotoComments(photoId: string): Observable<any> {
+    const params = new HttpParams()
+      .set('method', 'flickr.photos.comments.getList')
+      .set('api_key', this.API_KEY)
+      .set('photo_id', photoId)
+      .set('format', 'json')
+      .set('nojsoncallback', '1');
+
+    return this.http.get(this.API_URL, { params }).pipe(
+      catchError(error => {
+        console.error('Error API', error);
+        return throwError(() => new Error('Cannot retreive commentary'));
+      })
+    );
+  }
+
+  getPhotoLocation(photoId: string): Observable<any> {
+    const params = new HttpParams()
+      .set('method', 'flickr.photos.geo.getLocation')
+      .set('api_key', this.API_KEY)
+      .set('photo_id', photoId)
+      .set('format', 'json')
+      .set('nojsoncallback', '1');
+
+    return this.http.get(this.API_URL, { params }).pipe(
+      catchError(error => {
+        // Attention : Beaucoup de photos n'ont pas de données géographiques.
+        console.warn('Error API', error);
+        return throwError(() => new Error('Cannot retreive localisation'));
       })
     );
   }
