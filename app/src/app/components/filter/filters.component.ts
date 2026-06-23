@@ -5,8 +5,9 @@ import { FlickrService } from '../../services/flickr.service';
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule],
   //templateUrl: './filters.component.html'
+  template: '<form [formGroup]="filterForm" (ngSubmit)="onSubmit()"><button type="submit">Tester la recherche</button></form>'
 })
 export class FiltersComponent {
   filterForm: FormGroup;

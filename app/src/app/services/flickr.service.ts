@@ -17,7 +17,7 @@ export interface FlickrFilters {
 @Injectable({ providedIn: 'root' })
 export class FlickrService {
   private readonly API_URL = 'https://api.flickr.com/services/rest';
-  private readonly API_KEY = "";
+  private readonly API_KEY = "d6324e3dd93b7fed5ae6a7a37a29be71";
   private http = inject(HttpClient);
 
   searchPhotos(filters: FlickrFilters): Observable<any> {
@@ -76,7 +76,7 @@ export class FlickrService {
       .set('format', 'json')
       .set('nojsoncallback', '1');
 
-    return this.http.get(this.API_URL, { params }).pip(
+    return this.http.get(this.API_URL, { params }).pipe(
       catchError(e => {
         console.error('Error API: ', e);
         return throwError(() => new Error('Cannot retreive photo details'));
