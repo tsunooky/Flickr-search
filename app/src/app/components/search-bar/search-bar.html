@@ -1,0 +1,12 @@
+<form (submit)="$event.preventDefault(); search.emit(queryInput.value)" class="d-flex gap-2 mb-3">
+  <input
+    type="text"
+    #queryInput
+    [value]="query"
+    class="form-control"
+    placeholder="Rechercher des photos..."
+  />
+  <button type="submit" class="btn btn-primary d-flex align-items-center gap-1">
+    <i class="bi bi-search"></i> <span>Chercher</span>
+  </button>
+</form>

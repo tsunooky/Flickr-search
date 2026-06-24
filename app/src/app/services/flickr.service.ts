@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, throwError } from 'rxjs';
 
 export interface FlickrFilters {
   text?: string;
@@ -22,7 +21,7 @@ export class FlickrService {
   private http = inject(HttpClient);
 
   // Recherche des photos sur Flickr
-  searchPhotos(filters: FlickrFilters): Observable<any> {
+  searchPhotos(filters: FlickrFilters) {
     let params = new HttpParams()
       .set('method', 'flickr.photos.search')
       .set('api_key', this.API_KEY)
@@ -50,7 +49,7 @@ export class FlickrService {
   }
 
   // Récupère les infos d'une photo
-  getPhotoDetails(photoId: string): Observable<any> {
+  getPhotoDetails(photoId: string) {
     const params = new HttpParams()
       .set('method', 'flickr.photos.getInfo')
       .set('api_key', this.API_KEY)
@@ -67,7 +66,7 @@ export class FlickrService {
   }
 
   // Récupère les commentaires d'une photo
-  getPhotoComments(photoId: string): Observable<any> {
+  getPhotoComments(photoId: string) {
     const params = new HttpParams()
       .set('method', 'flickr.photos.comments.getList')
       .set('api_key', this.API_KEY)

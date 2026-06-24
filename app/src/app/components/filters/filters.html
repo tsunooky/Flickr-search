@@ -1,0 +1,54 @@
+<div class="bg-light p-2 rounded mb-3">
+  <form
+    [formGroup]="filterForm"
+    class="d-flex align-items-end justify-content-start gap-2 flex-wrap flex-lg-nowrap"
+  >
+    <div style="flex: 1 1 0px; min-width: 140px">
+      <label class="small text-muted mb-1 d-block text-truncate">Trier par</label>
+      <select formControlName="sort" class="form-select form-select-sm">
+        <option value="relevance">Pertinence</option>
+        <option value="date-posted-desc">Date de publication</option>
+        <option value="interestingness-desc">Intérêt</option>
+      </select>
+    </div>
+
+    <div style="flex: 1 1 0px; min-width: 140px">
+      <label class="small text-muted mb-1 d-block text-truncate">Date minimale</label>
+      <input type="date" formControlName="min_upload_date" class="form-control form-control-sm" />
+    </div>
+
+    <div style="flex: 1 1 0px; min-width: 140px">
+      <label class="small text-muted mb-1 d-block text-truncate">Date maximale</label>
+      <input type="date" formControlName="max_upload_date" class="form-control form-control-sm" />
+    </div>
+
+    <div style="flex: 1 1 0px; min-width: 140px">
+      <label class="small text-muted mb-1 d-block text-truncate">Taille</label>
+      <select formControlName="size" class="form-select form-select-sm">
+        <option value="url_s">Petite</option>
+        <option value="url_m">Moyenne</option>
+        <option value="url_l">Grande</option>
+      </select>
+    </div>
+
+    <div style="flex: 1 1 0px; min-width: 140px">
+      <label class="small text-muted mb-1 d-block text-truncate">Tags</label>
+      <input
+        type="text"
+        formControlName="tags"
+        class="form-control form-control-sm"
+        placeholder="Ajouter des tags..."
+      />
+    </div>
+
+    <div class="form-check mb-1" style="flex: 0 0 auto; white-space: nowrap">
+      <input type="checkbox" formControlName="in_gallery" id="gal" class="form-check-input me-1" />
+      <label for="gal" class="small text-secondary mb-0">Appartient à une galerie</label>
+    </div>
+
+    <div class="form-check mb-1" style="flex: 0 0 auto; white-space: nowrap">
+      <input type="checkbox" formControlName="nsfw" id="nsfw" class="form-check-input me-1" />
+      <label for="nsfw" class="small text-danger fw-bold mb-0">Afficher le contenu NSFW</label>
+    </div>
+  </form>
+</div>
