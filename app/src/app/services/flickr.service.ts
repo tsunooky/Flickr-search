@@ -16,7 +16,7 @@ export interface FlickrFilters {
 @Injectable({ providedIn: 'root' })
 export class FlickrService {
   private readonly API_URL = 'https://api.flickr.com/services/rest';
-  private readonly API_KEY = 'ac7a81b5c2f23fad55583be2babbb3c2';
+  private readonly API_KEY = '53b313aee256ada9cd41b57258f2d78f';
 
   private http = inject(HttpClient);
 
