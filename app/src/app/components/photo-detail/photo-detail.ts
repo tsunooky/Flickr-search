@@ -11,4 +11,6 @@ export class PhotoDetail {
   @Input() photo: any = null;
   @Output() close = new EventEmitter<void>();
   @Output() photoSelect = new EventEmitter<string>();
+  @Output() prev = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
 }

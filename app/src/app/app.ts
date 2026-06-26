@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, HostListener } from '@angular/core';
 import { SearchBar } from './components/search-bar/search-bar';
 import { Filters } from './components/filters/filters';
 import { Results } from './components/results/results';
@@ -120,5 +120,32 @@ export class App {
     const ownerId =
       this.selectedPhotoDetail().info.owner.nsid || this.selectedPhotoDetail().info.owner.id;
     this.onPhotoClick({ id: photoId, owner: ownerId });
+  }
+
+  // Navigation entre les photos (gauche/droite)
+  navigatePhoto(direction: number) {
+    if (!this.selectedPhotoDetail() || this.photos().length === 0) return;
+    const currentId = this.selectedPhotoDetail().info.id;
+    const index = this.photos().findIndex((p) => p.id === currentId);
+    if (index === -1) return;
+
+    let newIndex = index + direction;
+    if (newIndex >= this.photos().length) newIndex = 0;
+    if (newIndex < 0) newIndex = this.photos().length - 1;
+
+    this.onPhotoClick(this.photos()[newIndex]);
+  }
+
+  // Gestion des raccourcis clavier
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (!this.selectedPhotoDetail()) return;
+    if (event.key === 'ArrowRight') {
+      this.navigatePhoto(1);
+    } else if (event.key === 'ArrowLeft') {
+      this.navigatePhoto(-1);
+    } else if (event.key === 'Escape') {
+      this.onCloseDetails();
+    }
   }
 }

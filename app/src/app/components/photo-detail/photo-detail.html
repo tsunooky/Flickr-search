@@ -4,6 +4,26 @@
     (click)="close.emit()"
     style="background: rgba(0, 0, 0, 0.6); overflow-y: auto"
   >
+    <!-- Bouton next -->
+    <button
+      type="button"
+      class="btn btn-dark rounded-circle position-fixed start-0 top-50 translate-middle-y ms-3 d-flex align-items-center justify-content-center"
+      (click)="$event.stopPropagation(); prev.emit()"
+      style="width: 70px; height: 70px; z-index: 1050; border: none; opacity: 0.8"
+    >
+      <i class="bi bi-chevron-left fs-4"></i>
+    </button>
+
+    <!-- Bouton prev -->
+    <button
+      type="button"
+      class="btn btn-dark rounded-circle position-fixed end-0 top-50 translate-middle-y me-3 d-flex align-items-center justify-content-center"
+      (click)="$event.stopPropagation(); next.emit()"
+      style="width: 70px; height: 70px; z-index: 1050; border: none; opacity: 0.8"
+    >
+      <i class="bi bi-chevron-right fs-4"></i>
+    </button>
+
     <div class="modal-dialog modal-xl modal-dialog-centered" (click)="$event.stopPropagation()">
       <div class="modal-content">
         <div class="modal-header border-0 pb-0 pt-2 pe-2 d-flex justify-content-end">

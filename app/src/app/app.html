@@ -37,6 +37,8 @@
       [photo]="selectedPhotoDetail()"
       (close)="onCloseDetails()"
       (photoSelect)="onPhotoSelectInDetails($event)"
+      (prev)="navigatePhoto(-1)"
+      (next)="navigatePhoto(1)"
     ></app-photo-detail>
   }
 </div>
