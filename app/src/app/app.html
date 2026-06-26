@@ -1,0 +1,42 @@
+<div class="container-fluid px-4 py-4">
+  <app-search-bar [query]="searchQuery()" (search)="onSearchQuery($event)"></app-search-bar>
+  <app-filters (filterChange)="onFiltersChange($event)"></app-filters>
+
+  @if (errorMsg()) {
+    <div class="alert alert-warning">{{ errorMsg() }}</div>
+  }
+
+  @if (loading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary"></div>
+      <p class="text-muted mt-2">Chargement en cours...</p>
+    </div>
+  }
+
+  @if (!loading()) {
+    <app-results
+      [photos]="photos()"
+      [size]="currentSize()"
+      (photoClick)="onPhotoClick($event)"
+    ></app-results>
+  }
+
+  @if (loadingDetails()) {
+    <div class="modal d-block" style="background: rgba(0, 0, 0, 0.5)">
+      <div class="modal-dialog modal-dialog-centered text-center text-white">
+        <div class="w-100">
+          <div class="spinner-border text-light"></div>
+          <p class="mt-2">Chargement des détails...</p>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (selectedPhotoDetail()) {
+    <app-photo-detail
+      [photo]="selectedPhotoDetail()"
+      (close)="onCloseDetails()"
+      (photoSelect)="onPhotoSelectInDetails($event)"
+    ></app-photo-detail>
+  }
+</div>

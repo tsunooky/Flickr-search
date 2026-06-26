@@ -1,0 +1,7 @@
+/* Limiter la taille des images dans les commentaires */
+::ng-deep .comments-list img {
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: 5px 0;
+}
