@@ -1,6 +1,10 @@
 @if (photo) {
-  <div class="modal d-block" style="background: rgba(0, 0, 0, 0.6); overflow-y: auto">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+  <div
+    class="modal d-block"
+    (click)="close.emit()"
+    style="background: rgba(0, 0, 0, 0.6); overflow-y: auto"
+  >
+    <div class="modal-dialog modal-xl modal-dialog-centered" (click)="$event.stopPropagation()">
       <div class="modal-content">
         <div class="modal-header border-0 pb-0 pt-2 pe-2 d-flex justify-content-end">
           <button
